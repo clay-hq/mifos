@@ -23,9 +23,10 @@ interface RescheduleFormData {
 }
 
 @Component({
-  selector: 'mifosx-reschedule-loan',
-  templateUrl: './reschedule-loan.component.html',
-  styleUrls: ['./reschedule-loan.component.scss']
+    selector: 'mifosx-reschedule-loan',
+    templateUrl: './reschedule-loan.component.html',
+    styleUrls: ['./reschedule-loan.component.scss'],
+    standalone: false
 })
 export class RescheduleLoanComponent {
   /** Loans Data */

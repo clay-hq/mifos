@@ -25,9 +25,10 @@ interface DisbursementData {
  * Create Loans Account Terms Step
  */
 @Component({
-  selector: 'mifosx-loans-account-terms-step',
-  templateUrl: './loans-account-terms-step.component.html',
-  styleUrls: ['./loans-account-terms-step.component.scss']
+    selector: 'mifosx-loans-account-terms-step',
+    templateUrl: './loans-account-terms-step.component.html',
+    styleUrls: ['./loans-account-terms-step.component.scss'],
+    standalone: false
 })
 export class LoansAccountTermsStepComponent implements OnInit, OnChanges {
   /** Loans Product Options */

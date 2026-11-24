@@ -19,9 +19,10 @@ import { CreateHoliday } from './create-holiday.service';
  * Create Holiday component.
  */
 @Component({
-  selector: 'mifosx-create-holiday',
-  templateUrl: './create-holiday.component.html',
-  styleUrls: ['./create-holiday.component.scss']
+    selector: 'mifosx-create-holiday',
+    templateUrl: './create-holiday.component.html',
+    styleUrls: ['./create-holiday.component.scss'],
+    standalone: false
 })
 export class CreateHolidayComponent implements OnInit {
   /** Create Holiday form. */
