@@ -8,12 +8,13 @@ import { DeleteDialogComponent } from 'app/shared/delete-dialog/delete-dialog.co
 import { FormDialogComponent } from 'app/shared/form-dialog/form-dialog.component';
 import { DatepickerBase } from 'app/shared/form-dialog/formfield/model/datepicker-base';
 import { FormfieldBase } from 'app/shared/form-dialog/formfield/model/formfield-base';
-import { AnyKindOfDictionary } from 'cypress/types/lodash';
+import { AnyKindOfDictionary } from 'lodash';
 
 @Component({
   selector: 'mifosx-loan-term-variations-tab',
   templateUrl: './loan-term-variations-tab.component.html',
-  styleUrls: ['./loan-term-variations-tab.component.scss']
+  styleUrls: ['./loan-term-variations-tab.component.scss'],
+  standalone: false
 })
 export class LoanTermVariationsTabComponent {
   /** Loan Term Variation Data */

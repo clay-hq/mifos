@@ -4,7 +4,26 @@ import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } 
 import { Router, ActivatedRoute } from '@angular/router';
 
 /** CKEditor5 Imports */
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {
+  ClassicEditor,
+  Autoformat,
+  BlockQuote,
+  Bold,
+  Essentials,
+  Heading,
+  Indent,
+  Italic,
+  Link,
+  List,
+  Paragraph,
+  PasteFromOffice,
+  Table,
+  TableToolbar,
+  TextTransformation,
+  Underline,
+  Undo,
+  type EditorConfig
+} from 'ckeditor5';
 
 /** Custom Imports */
 import { clientParameterLabels, loanParameterLabels, repaymentParameterLabels } from '../template-parameter-labels';
@@ -18,11 +37,60 @@ import { TemplatesService } from '../templates.service';
 @Component({
   selector: 'mifosx-create-edit-template',
   templateUrl: './create-edit-template.component.html',
-  styleUrls: ['./create-edit-template.component.scss']
+  styleUrls: ['./create-edit-template.component.scss'],
+  standalone: false
 })
 export class CreateEditComponent implements OnInit {
   /** CKEditor5 */
   public Editor = ClassicEditor;
+  /** CKEditor5 editor configuration (plugins + toolbar previously bundled by ckeditor5-build-classic). */
+  public editorConfig: EditorConfig = {
+    licenseKey: 'GPL',
+    plugins: [
+      Essentials,
+      Paragraph,
+      Heading,
+      Bold,
+      Italic,
+      Underline,
+      Link,
+      List,
+      BlockQuote,
+      Indent,
+      Table,
+      TableToolbar,
+      Autoformat,
+      PasteFromOffice,
+      TextTransformation,
+      Undo
+    ],
+    toolbar: [
+      'undo',
+      'redo',
+      '|',
+      'heading',
+      '|',
+      'bold',
+      'italic',
+      'underline',
+      '|',
+      'link',
+      'bulletedList',
+      'numberedList',
+      'blockQuote',
+      'insertTable',
+      '|',
+      'outdent',
+      'indent'
+    ],
+    table: {
+      contentToolbar: [
+        'tableColumn',
+        'tableRow',
+        'mergeTableCells'
+      ]
+    }
+  };
   /** CKEditor5 Template Reference */
   @ViewChild('ckEditor', { static: true }) ckEditor: any;
 

@@ -35,6 +35,14 @@ module.exports = [
       // Angular template inline rules
       ...angularEslintTemplatePlugin.configs['process-inline-templates'].rules,
 
+      // angular-eslint v20 added these opinionated rules to 'recommended'.
+      // This app is NgModule-based and uses constructor DI throughout; we are
+      // not adopting standalone components or inject() as part of the framework
+      // upgrade, so keep the existing architecture rather than refactoring
+      // thousands of call sites.
+      '@angular-eslint/prefer-standalone': 'off',
+      '@angular-eslint/prefer-inject': 'off',
+
       // Component selector rules
       '@angular-eslint/component-selector': [
         'error',

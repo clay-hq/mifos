@@ -12,7 +12,8 @@ import { ProductsService } from '../../products.service';
 @Component({
   selector: 'mifosx-create-product-mix',
   templateUrl: './create-product-mix.component.html',
-  styleUrls: ['./create-product-mix.component.scss']
+  styleUrls: ['./create-product-mix.component.scss'],
+  standalone: false
 })
 export class CreateProductMixComponent implements OnInit {
   /** Product mix form. */
