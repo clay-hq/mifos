@@ -6,7 +6,7 @@ describe('ConfigurationWizardService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ConfigurationWizardService = TestBed.get(ConfigurationWizardService);
+    const service: ConfigurationWizardService = TestBed.inject(ConfigurationWizardService);
     expect(service).toBeTruthy();
   });
 });
