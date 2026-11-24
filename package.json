@@ -29,7 +29,7 @@
     "cypress:run": "cypress run"
   },
   "dependencies": {
-    "@angular-devkit/schematics": "17.3.17",
+    "@angular-devkit/schematics": "22.3.0",
     "@angular/animations": "17.3.12",
     "@angular/cdk": "^22.3.0",
     "@angular/common": "22.3.0",
@@ -68,13 +68,13 @@
     "zone.js": "0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.17",
+    "@angular-devkit/build-angular": "^22.3.0",
     "@angular-eslint/builder": "^19.7.0",
     "@angular-eslint/eslint-plugin": "^19.7.0",
     "@angular-eslint/eslint-plugin-template": "^19.7.0",
     "@angular-eslint/schematics": "^19.7.0",
     "@angular-eslint/template-parser": "^19.7.0",
-    "@angular/cli": "17.3.17",
+    "@angular/cli": "22.3.0",
     "@angular/compiler-cli": "17.3.12",
     "@angular/language-service": "17.3.12",
     "@vendure/ngx-translate-extract": "^9.4.0",
