@@ -15,10 +15,10 @@ import { CancelDialogComponent } from '../../../shared/cancel-dialog/cancel-dial
  * Create survey component.
  */
 @Component({
-    selector: 'mifosx-create-survey',
-    templateUrl: './create-survey.component.html',
-    styleUrls: ['./create-survey.component.scss'],
-    standalone: false
+  selector: 'mifosx-create-survey',
+  templateUrl: './create-survey.component.html',
+  styleUrls: ['./create-survey.component.scss'],
+  standalone: false
 })
 export class CreateSurveyComponent implements OnInit {
   /** Survey form. */

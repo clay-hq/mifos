@@ -12,10 +12,10 @@ import { Dates } from 'app/core/utils/dates';
  * Edit Employee Component.
  */
 @Component({
-    selector: 'mifosx-edit-employee',
-    templateUrl: './edit-employee.component.html',
-    styleUrls: ['./edit-employee.component.scss'],
-    standalone: false
+  selector: 'mifosx-edit-employee',
+  templateUrl: './edit-employee.component.html',
+  styleUrls: ['./edit-employee.component.scss'],
+  standalone: false
 })
 export class EditEmployeeComponent implements OnInit {
   /** Employee data. */

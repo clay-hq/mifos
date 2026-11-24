@@ -40,46 +40,53 @@ import { ContentComponent } from './shell/content/content.component';
  *
  * Main app shell components and singleton services should be here.
  */
-@NgModule({ declarations: [
-        ShellComponent,
-        SidenavComponent,
-        ToolbarComponent,
-        BreadcrumbComponent,
-        ContentComponent
-    ],
-    exports: [
-        SharedModule // TO BE REMOVED: Once all components have replaced the core module import by shared module.
-    ], imports: [SharedModule,
-        TranslateModule,
-        RouterModule], providers: [
-        AuthenticationService,
-        AuthenticationGuard,
-        AuthenticationInterceptor,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthenticationInterceptor,
-            multi: true
-        },
-        HttpCacheService,
-        ApiPrefixInterceptor,
-        ErrorHandlerInterceptor,
-        CacheInterceptor,
-        {
-            provide: HttpClient,
-            useClass: HttpService
-        },
-        ProgressBarService,
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: ProgressInterceptor,
-            multi: true
-        },
-        {
-            provide: RouteReuseStrategy,
-            useClass: RouteReusableStrategy
-        },
-        provideHttpClient(withInterceptorsFromDi())
-    ] })
+@NgModule({
+  declarations: [
+    ShellComponent,
+    SidenavComponent,
+    ToolbarComponent,
+    BreadcrumbComponent,
+    ContentComponent
+  ],
+  exports: [
+    SharedModule // TO BE REMOVED: Once all components have replaced the core module import by shared module.
+
+  ],
+  imports: [
+    SharedModule,
+    TranslateModule,
+    RouterModule
+  ],
+  providers: [
+    AuthenticationService,
+    AuthenticationGuard,
+    AuthenticationInterceptor,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthenticationInterceptor,
+      multi: true
+    },
+    HttpCacheService,
+    ApiPrefixInterceptor,
+    ErrorHandlerInterceptor,
+    CacheInterceptor,
+    {
+      provide: HttpClient,
+      useClass: HttpService
+    },
+    ProgressBarService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ProgressInterceptor,
+      multi: true
+    },
+    {
+      provide: RouteReuseStrategy,
+      useClass: RouteReusableStrategy
+    },
+    provideHttpClient(withInterceptorsFromDi())
+  ]
+})
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
     // Import guard

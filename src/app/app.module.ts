@@ -64,47 +64,56 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
-@NgModule({ declarations: [
-        WebAppComponent,
-        NotFoundComponent
-    ],
-    bootstrap: [WebAppComponent], imports: [TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (httpBackend: HttpBackend, locationStrategy: LocationStrategy) => {
-                    const http = new HttpClient(httpBackend);
-                    return new TranslateHttpLoader(http, `/assets/translations/`, '.json');
-                },
-                deps: [
-                    HttpBackend,
-                    LocationStrategy
-                ]
-            },
-            missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CustomMissingTranslationHandler }
-        }),
-        BrowserModule,
-        BrowserAnimationsModule,
-        PortalModule,
-        CoreModule,
-        HomeModule,
-        LoginModule,
-        ProfileModule,
-        SettingsModule,
-        NavigationModule,
-        ClientsModule,
-        ReportsModule,
-        GroupsModule,
-        CentersModule,
-        AccountingModule,
-        SystemModule,
-        ProductsModule,
-        OrganizationModule,
-        TemplatesModule,
-        UsersModule,
-        NotificationsModule,
-        SearchModule,
-        CollectionsModule,
-        TasksModule,
-        ConfigurationWizardModule,
-        AppRoutingModule], providers: [DatePipe, provideHttpClient(withInterceptorsFromDi())] })
+@NgModule({
+  declarations: [
+    WebAppComponent,
+    NotFoundComponent
+  ],
+  bootstrap: [WebAppComponent],
+  imports: [
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (httpBackend: HttpBackend, locationStrategy: LocationStrategy) => {
+          const http = new HttpClient(httpBackend);
+          return new TranslateHttpLoader(http, `/assets/translations/`, '.json');
+        },
+        deps: [
+          HttpBackend,
+          LocationStrategy
+        ]
+      },
+      missingTranslationHandler: { provide: MissingTranslationHandler, useClass: CustomMissingTranslationHandler }
+    }),
+    BrowserModule,
+    BrowserAnimationsModule,
+    PortalModule,
+    CoreModule,
+    HomeModule,
+    LoginModule,
+    ProfileModule,
+    SettingsModule,
+    NavigationModule,
+    ClientsModule,
+    ReportsModule,
+    GroupsModule,
+    CentersModule,
+    AccountingModule,
+    SystemModule,
+    ProductsModule,
+    OrganizationModule,
+    TemplatesModule,
+    UsersModule,
+    NotificationsModule,
+    SearchModule,
+    CollectionsModule,
+    TasksModule,
+    ConfigurationWizardModule,
+    AppRoutingModule
+
+  ],
+  providers: [
+    DatePipe,
+    provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule {}

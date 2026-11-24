@@ -8,10 +8,10 @@ import { Currency, PaymentType } from 'app/shared/models/general.model';
 import { TransactionCommand, TransactionTypeFlags } from '../../../transaction.model';
 
 @Component({
-    selector: 'mifosx-fixed-deposits-cash-transaction',
-    templateUrl: './fixed-deposits-cash-transaction.component.html',
-    styleUrls: ['./fixed-deposits-cash-transaction.component.scss'],
-    standalone: false
+  selector: 'mifosx-fixed-deposits-cash-transaction',
+  templateUrl: './fixed-deposits-cash-transaction.component.html',
+  styleUrls: ['./fixed-deposits-cash-transaction.component.scss'],
+  standalone: false
 })
 export class FixedDepositsCashTransactionComponent implements OnInit {
   /** Minimum Due Date allowed. */

@@ -81,6 +81,7 @@
       <ckeditor
         #ckEditor
         [editor]="Editor"
+        [config]="editorConfig"
         (change)="onEditorChange($event)"
         [data]="templateData.template?.text"
       ></ckeditor>

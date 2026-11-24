@@ -36,6 +36,7 @@
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/@fortawesome/fontawesome-free/css/v4-shims.css",
               "src/main.scss",
+              "node_modules/ckeditor5/dist/ckeditor5.css",
               {
                 "inject": false,
                 "input": "src/theme/mifosx-theme.scss",
@@ -45,7 +46,6 @@
             "scripts": [],
             "allowedCommonJsDependencies": [
               "lodash",
-              "@ckeditor/ckeditor5-build-classic",
               "moment"
             ]
           },

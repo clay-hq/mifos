@@ -22,10 +22,10 @@ interface OfficeNode {
 }
 
 @Component({
-    selector: 'mifosx-loan-approval',
-    templateUrl: './loan-approval.component.html',
-    styleUrls: ['./loan-approval.component.scss'],
-    standalone: false
+  selector: 'mifosx-loan-approval',
+  templateUrl: './loan-approval.component.html',
+  styleUrls: ['./loan-approval.component.scss'],
+  standalone: false
 })
 export class LoanApprovalComponent {
   /** Offices Data */

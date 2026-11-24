@@ -14,10 +14,10 @@ import { TransactionCommand, TransactionTypeFlags } from '../../../transaction.m
  * Deposits Recurring Deposits Account Component
  */
 @Component({
-    selector: 'mifosx-deposit-recurring-deposits-account',
-    templateUrl: './deposit-recurring-deposits-account.component.html',
-    styleUrls: ['./deposit-recurring-deposits-account.component.scss'],
-    standalone: false
+  selector: 'mifosx-deposit-recurring-deposits-account',
+  templateUrl: './deposit-recurring-deposits-account.component.html',
+  styleUrls: ['./deposit-recurring-deposits-account.component.scss'],
+  standalone: false
 })
 export class DepositRecurringDepositsAccountComponent implements OnInit {
   @Input() currency: Currency;

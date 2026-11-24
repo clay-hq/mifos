@@ -21,10 +21,10 @@ import { ActivatedRoute } from '@angular/router';
  * Recurring Deposit Account Charges Step
  */
 @Component({
-    selector: 'mifosx-loans-account-charges-step',
-    templateUrl: './loans-account-charges-step.component.html',
-    styleUrls: ['./loans-account-charges-step.component.scss'],
-    standalone: false
+  selector: 'mifosx-loans-account-charges-step',
+  templateUrl: './loans-account-charges-step.component.html',
+  styleUrls: ['./loans-account-charges-step.component.scss'],
+  standalone: false
 })
 export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
   // @Input loansAccountProductTemplate: LoansAccountProductTemplate
