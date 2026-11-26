@@ -27,7 +27,7 @@ jobs:
           # no support for lts as of now with github actions.
           # issue link : https://github.com/actions/setup-node/issues/26
           # lts/gallium node v19.7.0 (npm v9.5.0)
-          node-version: '22.9.0'
+          node-version: '22'
       - name: Run CI
         run: npm ci
 
@@ -45,16 +45,3 @@ jobs:
 
       - name: Run build
         run: npm run build:prod
-
-      - name: Deploy to github pages
-        if: ${{ github.event_name == 'push' }}
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: dist/web-app
-          #without preserve it only builds if you have untracked files
-          PRESERVE: true
-          # github user name and email shows up in the logs,
-          # so it would be better to make it silent.
-          SILENT: true

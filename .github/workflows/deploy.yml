@@ -1,0 +1,51 @@
+name: Deploy
+run-name: Deploy to ${{ inputs.environment || 'dev' }}
+
+# Builds the web app into its nginx image (the Dockerfile at the root) and swaps the image on
+# the `mifos` Cloud Run service, through clay-hq/workflows' deploy-web, as the other portals do.
+# The service itself (its env vars, which the image writes into assets/env.js at start, scaling,
+# ingress) is owned by terraform: a deploy only ever changes the image.
+#
+# A push to main deploys to kravings-dev, so beta tracks main. A push has no inputs, so every
+# inputs.environment below falls back to dev, the run title too. Production is deploy-prod.yml.
+#
+# Keyless sign-in as deployer@ is accepted from refs/heads/main only (terraform's
+# github_deploy_branches), so a dispatch from any other branch is refused at the token exchange.
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Which project to deploy into
+        type: choice
+        default: dev
+        options:
+          - dev
+
+jobs:
+  deploy:
+    permissions:
+      actions: read
+      contents: read
+      # Lets clay-hq/workflows sign in keyless as deployer@ (its gcp-auth action) where
+      # GCP_KEYLESS_PROJECTS lists the project.
+      id-token: write
+    uses: clay-hq/workflows/.github/workflows/deploy-web.yml@main
+    with:
+      project_id: ${{ fromJSON('{"dev":"kravings-dev"}')[inputs.environment || 'dev'] }}
+      service_name: mifos
+      image_tag: ${{ github.sha }}
+      app_environment: ${{ inputs.environment || 'dev' }}
+      # The image skips Puppeteer's Chromium download (only the upstream e2e tooling uses it).
+      build_args: |
+        PUPPETEER_SKIP_DOWNLOAD_ARG=true
+      # Nothing is baked in at build time: the Fineract URLs and tenant come from the service's
+      # env vars at start.
+      secret_build_args: ''
+      runs_on: ubuntu-24.04
+    secrets:
+      READ_PACKAGES_TOKEN: ${{ secrets.READ_PACKAGES_TOKEN }}
