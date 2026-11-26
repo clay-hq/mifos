@@ -58,6 +58,9 @@ import { ContentComponent } from './shell/content/content.component';
     RouterModule
   ],
   providers: [
+    // Must come before the HttpClient override below: provideHttpClient() also provides HttpClient,
+    // and the last provider wins. After it, HttpService (API prefix + error handling) would be lost.
+    provideHttpClient(withInterceptorsFromDi()),
     AuthenticationService,
     AuthenticationGuard,
     AuthenticationInterceptor,
@@ -83,8 +86,7 @@ import { ContentComponent } from './shell/content/content.component';
     {
       provide: RouteReuseStrategy,
       useClass: RouteReusableStrategy
-    },
-    provideHttpClient(withInterceptorsFromDi())
+    }
   ]
 })
 export class CoreModule {
