@@ -13,22 +13,10 @@ on:
 jobs:
   deploy:
     permissions:
-      actions: read
       contents: read
-      # Lets clay-hq/workflows sign in keyless as deployer@ (its gcp-auth action) where
-      # GCP_KEYLESS_PROJECTS lists the project.
+      # Lets cloud-run-deploy.yml sign in keyless as deployer@.
       id-token: write
-      deployments: read
-    uses: clay-hq/workflows/.github/workflows/deploy-web.yml@main
+    uses: ./.github/workflows/cloud-run-deploy.yml
     with:
       project_id: clay-api-prod
-      service_name: mifos
-      image_tag: ${{ github.sha }}
-      app_environment: prod
       environment: prod
-      build_args: |
-        PUPPETEER_SKIP_DOWNLOAD_ARG=true
-      secret_build_args: ''
-      runs_on: ubuntu-24.04
-    secrets:
-      READ_PACKAGES_TOKEN: ${{ secrets.READ_PACKAGES_TOKEN }}

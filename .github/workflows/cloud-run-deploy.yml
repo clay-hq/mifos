@@ -1,0 +1,95 @@
+name: Cloud Run deploy
+
+# Builds the web app into its nginx image (the Dockerfile at the root) and swaps the image on the
+# `mifos` Cloud Run service. deploy.yml (beta) and deploy-prod.yml (prod) call it.
+#
+# The same steps as clay-hq/workflows' deploy-web.yml and its gcp-auth action, kept here because
+# this repository is public and GitHub does not let a public repository use workflows or actions
+# from a private one. Keep the two in step.
+#
+# The service itself (its env vars, which the image writes into assets/env.js at start, scaling,
+# ingress) is owned by terraform: a deploy only ever changes the image. Nothing is baked in at
+# build time.
+
+on:
+  workflow_call:
+    inputs:
+      project_id:
+        required: true
+        type: string
+      # GitHub environment to record the deployment on. Empty for non-prod deploys.
+      environment:
+        required: false
+        type: string
+        default: ''
+
+env:
+  REGION: europe-west2
+  SERVICE: mifos
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      PROJECT_ID: ${{ inputs.project_id }}
+      IMAGE_URI: europe-west2-docker.pkg.dev/${{ inputs.project_id }}/cloud-run-source-deploy/mifos
+    steps:
+      # Keyless sign-in as deployer@ is accepted from refs/heads/main only (clay-hq/terraform
+      # github_deploy_branches); the provider refuses anything else. The project numbers are the
+      # ones in clay-hq/workflows' gcp-auth action.
+      - name: Choose the workload identity provider
+        id: provider
+        run: |
+          case "$PROJECT_ID" in
+            clay-api-prod) n=781905319639 ;;
+            kravings-dev)  n=355230661153 ;;
+            *)             n= ;;
+          esac
+          if [ -z "$n" ] || [ "$GITHUB_REF" != refs/heads/main ]; then
+            echo "::error::Cannot sign in to $PROJECT_ID from $GITHUB_REF: mifos deploys to kravings-dev or clay-api-prod, from main only."
+            exit 1
+          fi
+          echo "name=projects/$n/locations/global/workloadIdentityPools/github/providers/clay-hq" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Sign in keyless
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ steps.provider.outputs.name }}
+          service_account: deployer@${{ inputs.project_id }}.iam.gserviceaccount.com
+
+      - name: Set up gcloud CLI
+        uses: google-github-actions/setup-gcloud@v3
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker "$REGION-docker.pkg.dev" --quiet
+
+      # The image skips Puppeteer's Chromium download (only the upstream e2e tooling uses it).
+      - name: Build and push Docker image
+        run: |
+          docker build --build-arg PUPPETEER_SKIP_DOWNLOAD_ARG=true -t "$IMAGE_URI:$GITHUB_SHA" -t "$IMAGE_URI:latest" .
+          docker push "$IMAGE_URI:$GITHUB_SHA"
+          docker push "$IMAGE_URI:latest"
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy "$SERVICE" \
+            --image="$IMAGE_URI:$GITHUB_SHA" \
+            --region="$REGION" \
+            --project="$PROJECT_ID" \
+            --platform=managed \
+            --quiet
+
+  record:
+    needs: deploy
+    if: success() && inputs.environment != ''
+    runs-on: ubuntu-24.04
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Record deployed revision
+        run: echo "mifos in ${{ inputs.environment }} is now at $GITHUB_SHA"
