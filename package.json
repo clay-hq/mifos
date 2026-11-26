@@ -21,12 +21,9 @@
     "lint": "eslint . && stylelint \"src/**/*.scss\" && prettier . --check && htmlhint \"src\" --config .htmlhintrc",
     "test": "npm run env -s && ng test",
     "test:ci": "npm run env -s && npm run lint -s && ng test --code-coverage --watch=false",
-    "e2e": "ng e2e",
     "translations:extract": "ngx-translate-extract --input ./src --output ./src/translations/template.json --format=json --clean -sort --marker extract",
     "env": "node version.js",
-    "postinstall": "node version.js",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "postinstall": "node version.js"
   },
   "dependencies": {
     "@angular-devkit/schematics": "20.3.43",
@@ -52,6 +49,7 @@
     "@ngx-translate/http-loader": "^16.0.1",
     "@swimlane/ngx-graph": "^13.0.0",
     "@tailwindcss/forms": "^0.5.4",
+    "buffer": "^5.7.1",
     "chart.js": "3.0.0-alpha",
     "d3": "^7.9.0",
     "exceljs": "^4.4.0",
@@ -77,7 +75,6 @@
     "@angular/compiler-cli": "20.3.35",
     "@angular/language-service": "20.3.35",
     "@vendure/ngx-translate-extract": "^9.4.0",
-    "@cypress/schematic": "^2.5.2",
     "@types/d3-dispatch": "^3.0.1",
     "@types/d3-drag": "^3.0.1",
     "@types/d3-scale": "^3.2.2",
@@ -90,7 +87,6 @@
     "@types/vkbeautify": "^0.99.2",
     "@typescript-eslint/eslint-plugin": "^8.26.1",
     "@typescript-eslint/parser": "^8.26.1",
-    "cypress": "^13.17.0",
     "eslint": "^8.57.0",
     "git-describe": "^4.1.1",
     "htmlhint": "1.1.4",
